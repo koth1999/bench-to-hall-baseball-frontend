@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="벤치에서 MLB 명예의 전당까지, 나만의 야구선수 육성 게임" />
+    <title>벤치에서 명전까지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=DM+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="벤치에서 명전까지 홈"><span class="brand-ball">⚾</span><span>벤치에서 <b>명전</b>까지</span></a>
+      <nav><a href="#career">커리어</a><a href="#records">기록실</a><a href="#guide">게임 가이드</a></nav>
+      <button class="profile-btn" type="button" aria-label="선수 프로필"><span>J</span> 김주원 <i>⌄</i></button>
+    </header>
+
+    <main id="top">
+      <section class="hero-grid" aria-labelledby="hero-title">
+        <article class="player-card panel">
+          <div class="card-kicker"><span class="pulse"></span> 2031 SEASON · WEEK 12</div>
+          <div class="player-main">
+            <div class="player-number">17</div>
+            <div><p class="eyebrow">AAA · SEATTLE PILOTS</p><h1 id="hero-title">김주원 <span>Joon Kim</span></h1><p class="position">SP · 선발투수 · 22세</p></div>
+            <div class="overall"><strong id="overallValue">72</strong><span>OVR</span></div>
+          </div>
+          <div class="progress-row"><div><span>명예의 전당 여정</span><b id="hallProgressText">18 / 100</b></div><div class="track"><i id="hallProgress"></i></div><small>쿠퍼스타운까지 아직 멀었습니다. 오늘의 선택이 전설을 만듭니다.</small></div>
+          <div class="stat-strip">
+            <div><span>승-패</span><b id="winsLosses">6 - 3</b></div><div><span>ERA</span><b id="era">3.14</b></div><div><span>SO</span><b id="strikeouts">84</b></div><div><span>WAR</span><b id="war">1.8</b></div>
+          </div>
+        </article>
+
+        <aside class="next-game panel">
+          <p class="eyebrow">NEXT START</p><div class="game-date">MAY 26 <span>MON</span></div>
+          <div class="matchup"><div class="team-mark pilots">S</div><b>SEA</b><span>vs</span><b>HOU</b><div class="team-mark astros">H</div></div>
+          <p class="game-place">T-Mobile Park · 홈 · 19:10</p>
+          <button class="primary" id="playGame" type="button">경기 시작 <span>→</span></button>
+        </aside>
+      </section>
+
+      <section class="dashboard-grid" id="career">
+        <article class="panel action-panel"><div class="section-heading"><div><p class="eyebrow">THIS WEEK</p><h2>이번 주, 무엇을 할까요?</h2></div><span class="energy">⚡ <b id="energy">80</b>/100</span></div>
+          <div class="actions">
+            <button class="action chosen" data-action="training"><span class="action-icon">⌁</span><span><b>불펜 피칭</b><small>구위 +2 · 체력 -12</small></span><em>추천</em></button>
+            <button class="action" data-action="rest"><span class="action-icon">☾</span><span><b>휴식과 회복</b><small>체력 +20 · 컨디션 회복</small></span></button>
+            <button class="action" data-action="mentor"><span class="action-icon">★</span><span><b>베테랑 조언</b><small>멘탈 +2 · 관계 +1</small></span></button>
+          </div>
+          <button class="confirm" id="confirmAction" type="button">이번 주 일정 확정하기</button>
+        </article>
+
+        <article class="panel development"><div class="section-heading"><div><p class="eyebrow">DEVELOPMENT</p><h2>선수 능력치</h2></div><button class="link-btn" type="button">전체 보기 →</button></div>
+          <div class="attribute"><span>구위 <b id="power">76</b></span><div><i style="width:76%"></i></div></div>
+          <div class="attribute"><span>제구 <b id="control">68</b></span><div><i style="width:68%"></i></div></div>
+          <div class="attribute"><span>체력 <b id="stamina">74</b></span><div><i style="width:74%"></i></div></div>
+          <div class="attribute"><span>멘탈 <b id="mental">71</b></span><div><i style="width:71%"></i></div></div>
+        </article>
+
+        <article class="panel news" id="guide"><div class="section-heading"><div><p class="eyebrow">CLUBHOUSE</p><h2>오늘의 소식</h2></div><span class="live-dot">LIVE</span></div>
+          <ul id="newsList"><li><time>방금</time><p><b>감독:</b> 다음 등판을 준비하자. 네 공은 충분히 위력적이야.</p></li><li><time>2시간 전</time><p>트리플A 이 주의 투수 후보에 올랐습니다.</p></li><li><time>어제</time><p><b>스카우트 리포트:</b> 제구가 안정되면 빅리그 콜업도 보입니다.</p></li></ul>
+        </article>
+      </section>
+
+      <section class="roadmap panel" id="records"><div class="section-heading"><div><p class="eyebrow">THE ROAD TO COOPERSTOWN</p><h2>명예의 전당 로드맵</h2></div><span class="season-count">PRO 2년 차</span></div>
+        <div class="milestones"><div class="milestone done"><span>01</span><b>드래프트</b><small>2029</small></div><div class="line done"></div><div class="milestone active"><span>02</span><b>빅리그 데뷔</b><small>진행 중</small></div><div class="line"></div><div class="milestone"><span>03</span><b>올스타</b><small>목표</small></div><div class="line"></div><div class="milestone"><span>04</span><b>월드시리즈</b><small>목표</small></div><div class="line"></div><div class="milestone gold"><span>05</span><b>HALL OF FAME</b><small>쿠퍼스타운</small></div></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <footer>벤치에서 명전까지 · 가상의 야구 커리어 시뮬레이션 · MLB 및 각 구단의 명칭·로고는 각 권리자에게 있습니다.</footer>
+    <script src="./game.js"></script>
+  </body>
+</html>
