@@ -22,8 +22,9 @@
       <form class="setup-card" id="setupForm">
         <div class="setup-heading"><div><p class="eyebrow">CREATE A PLAYER</p><h2>나만의 선수 만들기</h2></div><span>01 / 01</span></div>
         <label class="field-label" for="playerName">선수 이름</label><input id="playerName" name="playerName" type="text" maxlength="12" placeholder="예: 김도윤" required autocomplete="name" />
-        <fieldset class="school-picker"><legend>출신 고등학교</legend><div class="region-tabs" role="tablist" aria-label="고등학교 지역"><button type="button" class="region-tab active" data-region="seoul">서울</button><button type="button" class="region-tab" data-region="gyeongin">경기·인천</button><button type="button" class="region-tab" data-region="gangwon">강원</button><button type="button" class="region-tab" data-region="chungcheong">충청</button><button type="button" class="region-tab" data-region="honam">호남</button><button type="button" class="region-tab" data-region="daegugyeongbuk">대구·경북</button><button type="button" class="region-tab" data-region="buulgyeong">부울경</button><button type="button" class="region-tab" data-region="jeju">제주</button></div><p class="school-helper" id="schoolHelper">서울권 고교야구부</p><div class="school-list" id="schoolList" role="listbox" aria-label="고등학교 목록"></div><input id="highSchool" name="highSchool" type="hidden" required /><p class="selected-school">선택한 학교 <b id="selectedSchool">아직 선택하지 않았습니다</b></p></fieldset>
+        <fieldset class="school-picker"><legend>출신 고등학교</legend><div class="region-tabs" role="tablist" aria-label="고등학교 지역"><button type="button" class="region-tab active" data-region="seoul">서울</button><button type="button" class="region-tab" data-region="gyeongin">경기·인천</button><button type="button" class="region-tab" data-region="gangwon">강원</button><button type="button" class="region-tab" data-region="chungcheong">충청</button><button type="button" class="region-tab" data-region="honam">호남</button><button type="button" class="region-tab" data-region="daegugyeongbuk">대구·경북</button><button type="button" class="region-tab" data-region="busangyeongnam">부산·경남</button><button type="button" class="region-tab" data-region="jeju">제주</button></div><p class="school-helper" id="schoolHelper">서울권 고교야구부</p><div class="school-list" id="schoolList" role="listbox" aria-label="고등학교 목록"></div><input id="highSchool" name="highSchool" type="hidden" required /><p class="selected-school">선택한 학교 <b id="selectedSchool">아직 선택하지 않았습니다</b></p></fieldset>
         <fieldset><legend>주 포지션</legend><div class="choice-grid position-grid"><label><input type="radio" name="position" value="P · 투수" checked /><span>P<small>투수</small></span></label><label><input type="radio" name="position" value="C · 포수" /><span>C<small>포수</small></span></label><label><input type="radio" name="position" value="IF · 내야수" /><span>IF<small>내야</small></span></label><label><input type="radio" name="position" value="OF · 외야수" /><span>OF<small>외야</small></span></label></div></fieldset>
+        <section class="position-details" id="positionDetails" aria-live="polite"></section>
         <fieldset><legend>졸업 후 진로</legend><div class="route-options"><label><input type="radio" name="route" value="draft" checked /><span><b>고졸 프로 지명</b><small>KBO 신인 드래프트를 노립니다</small></span></label><label><input type="radio" name="route" value="college" /><span><b>대학 야구부 진학</b><small>4년을 다듬어 더 높은 지명을 노립니다</small></span></label><label><input type="radio" name="route" value="minor" /><span><b>MLB 마이너 계약</b><small>국제 계약으로 빅리그에 바로 도전합니다</small></span></label></div></fieldset>
         <p class="setup-note">선택한 진로에 따라 드래프트, 포스팅, MLB FA 시점과 로드맵이 달라집니다.</p><button class="start-career" type="submit">커리어 시작하기 <span>→</span></button>
       </form>
@@ -60,18 +61,18 @@
       <section class="dashboard-grid" id="career">
         <article class="panel action-panel"><div class="section-heading"><div><p class="eyebrow" id="weekLabel">HIGH SCHOOL BASEBALL</p><h2 id="weeklyTitle">고교 마지막 시즌을 준비하세요</h2></div><span class="energy">⚡ <b id="energy">80</b>/100</span></div>
           <div class="actions">
-            <button class="action chosen" data-action="training"><span class="action-icon">⌁</span><span><b>불펜 피칭</b><small>구위 +2 · 체력 -12</small></span><em>추천</em></button>
-            <button class="action" data-action="rest"><span class="action-icon">☾</span><span><b>휴식과 회복</b><small>체력 +20 · 컨디션 회복</small></span></button>
-            <button class="action" data-action="mentor"><span class="action-icon">★</span><span><b>베테랑 조언</b><small>멘탈 +2 · 관계 +1</small></span></button>
+            <button class="action chosen" data-action="training"><span class="action-icon">⌁</span><span><b id="actionTitleTraining">불펜 피칭</b><small id="actionDetailTraining">구위 +2 · 체력 -12</small></span><em>추천</em></button>
+            <button class="action" data-action="rest"><span class="action-icon">☾</span><span><b id="actionTitleRest">휴식과 회복</b><small id="actionDetailRest">체력 +20 · 컨디션 회복</small></span></button>
+            <button class="action" data-action="mentor"><span class="action-icon">★</span><span><b id="actionTitleMentor">베테랑 조언</b><small id="actionDetailMentor">멘탈 +2 · 관계 +1</small></span></button>
           </div>
           <button class="confirm" id="confirmAction" type="button">이번 주 일정 확정하기</button>
         </article>
 
         <article class="panel development"><div class="section-heading"><div><p class="eyebrow">DEVELOPMENT</p><h2>선수 능력치</h2></div><button class="link-btn" type="button">전체 보기 →</button></div>
-          <div class="attribute"><span>구위 <b id="power">76</b></span><div><i style="width:76%"></i></div></div>
-          <div class="attribute"><span>제구 <b id="control">68</b></span><div><i style="width:68%"></i></div></div>
-          <div class="attribute"><span>체력 <b id="stamina">74</b></span><div><i style="width:74%"></i></div></div>
-          <div class="attribute"><span>멘탈 <b id="mental">71</b></span><div><i style="width:71%"></i></div></div>
+          <div class="attribute"><span><em id="statNamePower">구위</em> <b id="power">76</b></span><div><i style="width:76%"></i></div></div>
+          <div class="attribute"><span><em id="statNameControl">제구</em> <b id="control">68</b></span><div><i style="width:68%"></i></div></div>
+          <div class="attribute"><span><em id="statNameStamina">체력</em> <b id="stamina">74</b></span><div><i style="width:74%"></i></div></div>
+          <div class="attribute"><span><em id="statNameMental">멘탈</em> <b id="mental">71</b></span><div><i style="width:71%"></i></div></div>
         </article>
 
         <article class="panel news" id="guide"><div class="section-heading"><div><p class="eyebrow">CLUBHOUSE</p><h2>오늘의 소식</h2></div><span class="live-dot">LIVE</span></div>
