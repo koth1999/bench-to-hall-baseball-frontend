@@ -1,33 +1,26 @@
-/*
- * Backend seam: replace GameRepository's localStorage methods with fetch calls
- * to GET/PUT /api/careers/:id once the real API and database are connected.
- */
-const defaultCareer = { energy: 80, hall: 18, overall: 72, power: 76, control: 68, stamina: 74, mental: 71, wins: 6, losses: 3, era: 3.14, strikeouts: 84, war: 1.8 };
-
-const GameRepository = {
-  get() { return { ...defaultCareer, ...JSON.parse(localStorage.getItem('benchToHallCareer') || '{}') }; },
-  save(career) { localStorage.setItem('benchToHallCareer', JSON.stringify(career)); return career; }
-};
-
+/* Backend seam: replace GameRepository's localStorage methods with authenticated API calls. */
+const storageKey = 'benchToHallCareer';
+const baseCareer = { energy: 80, hall: 3, overall: 62, power: 64, control: 60, stamina: 64, mental: 65, wins: 0, losses: 0, era: 0, strikeouts: 0, war: 0, profile: null };
+const GameRepository = { get() { try { return { ...baseCareer, ...JSON.parse(localStorage.getItem(storageKey) || '{}') }; } catch { return { ...baseCareer }; } }, save(career) { localStorage.setItem(storageKey, JSON.stringify(career)); return career; } };
 let career = GameRepository.get();
 let selectedAction = 'training';
-const actionEffects = {
-  training: { label: '불펜 피칭을 마쳤습니다. 구위가 올랐어요!', energy: -12, power: 2, hall: 1 },
-  rest: { label: '회복에 집중했습니다. 다음 등판을 준비하세요.', energy: 20, mental: 1 },
-  mentor: { label: '베테랑의 조언이 멘탈을 단단하게 만들었습니다.', energy: -5, mental: 2, hall: 1 }
+const routeInfo = {
+  draft: { label: '고졸 프로 지명 도전', team: '고교 야구 · 3학년', week: 'HIGH SCHOOL BASEBALL', title: '신인 드래프트를 향해 실력을 증명하세요', age: 18, milestones: [['고교 야구', '시작'], ['KBO 드래프트', '올가을'], ['KBO 스타', '목표'], ['포스팅', 'MLB 도전'], ['MLB FA', '정상'], ['HALL OF FAME', '쿠퍼스타운']] },
+  college: { label: '대학 야구부 진학', team: '대학 리크루팅 캠프', week: 'COLLEGE PATH', title: '대학 야구부 진학을 준비하세요', age: 18, milestones: [['고교 야구', '시작'], ['대학 야구', '4년 성장'], ['KBO 드래프트', '졸업 후'], ['KBO 스타', '목표'], ['MLB FA', '정상'], ['HALL OF FAME', '쿠퍼스타운']] },
+  minor: { label: 'MLB 마이너 계약 도전', team: '국제 스카우트 쇼케이스', week: 'INTERNATIONAL PATH', title: 'MLB 마이너 계약을 향해 쇼케이스를 준비하세요', age: 18, milestones: [['고교 야구', '시작'], ['마이너 계약', '국제 계약'], ['MLB 데뷔', '빅리그'], ['포스팅 / FA', '대형 계약'], ['월드시리즈', '목표'], ['HALL OF FAME', '쿠퍼스타운']] }
 };
-
-function render() {
-  const write = (id, value) => document.getElementById(id).textContent = value;
-  write('energy', career.energy); write('overallValue', career.overall); write('power', career.power); write('control', career.control); write('stamina', career.stamina); write('mental', career.mental);
-  write('winsLosses', `${career.wins} - ${career.losses}`); write('era', career.era.toFixed(2)); write('strikeouts', career.strikeouts); write('war', career.war.toFixed(1)); write('hallProgressText', `${career.hall} / 100`);
-  document.getElementById('hallProgress').style.width = `${career.hall}%`;
-  document.querySelectorAll('.attribute').forEach((row) => { const name = row.querySelector('span').textContent.trim().split(' ')[0]; const stat = { 구위: career.power, 제구: career.control, 체력: career.stamina, 멘탈: career.mental }[name]; row.querySelector('i').style.width = `${stat}%`; });
-}
-
+const actionEffects = { training: { label: '집중 훈련을 마쳤습니다. 구위가 올랐어요!', energy: -12, power: 2, hall: 1 }, rest: { label: '회복에 집중했습니다. 다음 경기를 준비하세요.', energy: 18, mental: 1 }, mentor: { label: '선배의 조언이 멘탈을 단단하게 만들었습니다.', energy: -5, mental: 2, hall: 1 } };
+const write = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+const romanize = (name) => name.split('').map((char) => char === '김' ? 'Kim' : char).join(' ').replace(/\s+/g, ' ').trim() || 'Rookie';
+function renderRoadmap() { const route = routeInfo[career.profile.route]; document.getElementById('milestones').innerHTML = route.milestones.map(([label, sub], index) => { const className = index === 0 ? 'done' : index === 1 ? 'active' : index === route.milestones.length - 1 ? 'gold' : ''; const node = `<div class="milestone ${className}"><span>${String(index + 1).padStart(2, '0')}</span><b>${label}</b><small>${sub}</small></div>`; return index === route.milestones.length - 1 ? node : `${node}<div class="line ${index === 0 ? 'done' : ''}"></div>`; }).join(''); }
+function renderNews() { const p = career.profile; const route = routeInfo[p.route]; const second = p.route === 'college' ? '대학 감독이 당신의 플레이를 관찰하고 있습니다.' : p.route === 'minor' ? 'MLB 스카우트가 쇼케이스 명단에 이름을 올렸습니다.' : 'KBO 스카우트가 이번 주말 경기를 지켜볼 예정입니다.'; document.getElementById('newsList').innerHTML = `<li><time>방금</time><p><b>감독:</b> ${p.name}, ${route.label}을 위한 준비는 오늘부터다.</p></li><li><time>2시간 전</time><p>${second}</p></li><li><time>어제</time><p><b>커리어 노트:</b> 포스팅과 MLB FA는 빅리그에서 활약한 뒤 열립니다.</p></li>`; }
+function render() { if (!career.profile) return; const p = career.profile; const route = routeInfo[p.route]; const positionShort = p.position.split(' · ')[0]; write('displayName', p.name); write('headerName', p.name); write('playerInitial', p.name.charAt(0)); write('englishName', romanize(p.name)); write('teamLabel', `${p.highSchool} · ${route.team}`); write('positionLabel', `${p.position} · ${route.age}세`); write('weekLabel', route.week); write('weeklyTitle', route.title); write('energy', career.energy); write('overallValue', career.overall); write('power', career.power); write('control', career.control); write('stamina', career.stamina); write('mental', career.mental); write('winsLosses', `${career.wins} - ${career.losses}`); write('era', career.era.toFixed(2)); write('strikeouts', career.strikeouts); write('war', career.war.toFixed(1)); write('hallProgressText', `${career.hall} / 100`); document.getElementById('hallProgress').style.width = `${career.hall}%`; document.querySelectorAll('.attribute').forEach((row) => { const name = row.querySelector('span').textContent.trim().split(' ')[0]; const stat = { 구위: career.power, 제구: career.control, 체력: career.stamina, 멘탈: career.mental }[name]; row.querySelector('i').style.width = `${stat}%`; }); document.querySelector('.player-number').textContent = positionShort === 'SP' ? '17' : positionShort === 'SS' ? '7' : positionShort === 'C' ? '22' : '11'; renderRoadmap(); renderNews(); }
 function toast(message) { const el = document.getElementById('toast'); el.textContent = message; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2800); }
-
+function showSetup() { document.getElementById('onboarding').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+function hideSetup() { document.getElementById('onboarding').classList.add('hidden'); document.body.style.overflow = ''; }
+document.getElementById('setupForm').addEventListener('submit', (event) => { event.preventDefault(); const data = new FormData(event.currentTarget); const profile = { name: data.get('playerName').trim(), highSchool: data.get('highSchool'), position: data.get('position'), route: data.get('route') }; career = { ...baseCareer, profile }; GameRepository.save(career); hideSetup(); render(); toast(`${profile.name} 선수의 ${routeInfo[profile.route].label} 커리어가 시작됐습니다!`); });
+document.getElementById('profileButton').addEventListener('click', () => { document.getElementById('setupForm').reset(); showSetup(); });
 document.querySelectorAll('.action').forEach((button) => button.addEventListener('click', () => { selectedAction = button.dataset.action; document.querySelectorAll('.action').forEach((item) => item.classList.toggle('chosen', item === button)); }));
 document.getElementById('confirmAction').addEventListener('click', () => { const effect = actionEffects[selectedAction]; Object.entries(effect).forEach(([key, amount]) => { if (key !== 'label') career[key] = Math.max(0, Math.min(100, (career[key] || 0) + amount)); }); career.overall = Math.round((career.power + career.control + career.stamina + career.mental) / 4); GameRepository.save(career); render(); toast(effect.label); });
-document.getElementById('playGame').addEventListener('click', () => { const quality = Math.round((career.power + career.control + career.mental) / 3); const win = quality + Math.random() * 30 > 83; career.wins += win ? 1 : 0; career.losses += win ? 0 : 1; career.strikeouts += 4 + Math.floor(Math.random() * 6); career.war = +(career.war + (win ? .2 : .05)).toFixed(1); career.hall = Math.min(100, career.hall + (win ? 3 : 1)); career.energy = Math.max(0, career.energy - 20); GameRepository.save(career); render(); toast(win ? 'QS! 승리투수가 되었습니다. 명전 여정 +3' : '다음 등판에서 더 강해질 기회가 있어요.'); });
-render();
+document.getElementById('playGame').addEventListener('click', () => { if (!career.profile) return showSetup(); const quality = Math.round((career.power + career.control + career.mental) / 3); const win = quality + Math.random() * 30 > 83; career.wins += win ? 1 : 0; career.losses += win ? 0 : 1; career.strikeouts += 4 + Math.floor(Math.random() * 6); career.war = +(career.war + (win ? .2 : .05)).toFixed(1); career.hall = Math.min(100, career.hall + (win ? 3 : 1)); career.energy = Math.max(0, career.energy - 20); GameRepository.save(career); render(); toast(win ? '호투했습니다! 명전 여정이 +3 올랐습니다.' : '다음 경기에서 다시 증명할 기회가 있어요.'); });
+if (career.profile) { hideSetup(); render(); } else { showSetup(); }

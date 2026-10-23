@@ -11,10 +11,27 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <section class="onboarding" id="onboarding" aria-labelledby="setup-title">
+      <div class="onboarding-copy">
+        <a class="brand" href="#top"><span class="brand-ball">⚾</span><span>벤치에서 <b>명전</b>까지</span></a>
+        <p class="eyebrow">YOUR FIRST AT-BAT</p>
+        <h1 id="setup-title">모든 전설은<br /><em>고교 야구장</em>에서 시작됩니다.</h1>
+        <p>이름, 고등학교, 포지션과 진로를 고르세요. 드래프트부터 포스팅, FA, 그리고 쿠퍼스타운까지 당신의 커리어가 이어집니다.</p>
+        <div class="route-preview"><span>고교 야구</span><i></i><span>프로의 문</span><i></i><span>MLB</span><i></i><span>HALL OF FAME</span></div>
+      </div>
+      <form class="setup-card" id="setupForm">
+        <div class="setup-heading"><div><p class="eyebrow">CREATE A PLAYER</p><h2>나만의 선수 만들기</h2></div><span>01 / 01</span></div>
+        <label class="field-label" for="playerName">선수 이름</label><input id="playerName" name="playerName" type="text" maxlength="12" placeholder="예: 김도윤" required autocomplete="name" />
+        <label class="field-label" for="highSchool">출신 고등학교</label><select id="highSchool" name="highSchool" required><option value="">고등학교를 선택하세요</option><option>서울고등학교</option><option>경남고등학교</option><option>광주제일고등학교</option><option>대구상원고등학교</option><option>인천고등학교</option><option>기타 고등학교</option></select>
+        <fieldset><legend>주 포지션</legend><div class="choice-grid position-grid"><label><input type="radio" name="position" value="SP · 선발투수" checked /><span>SP<small>선발투수</small></span></label><label><input type="radio" name="position" value="RP · 구원투수" /><span>RP<small>구원투수</small></span></label><label><input type="radio" name="position" value="C · 포수" /><span>C<small>포수</small></span></label><label><input type="radio" name="position" value="SS · 유격수" /><span>SS<small>유격수</small></span></label><label><input type="radio" name="position" value="OF · 외야수" /><span>OF<small>외야수</small></span></label></div></fieldset>
+        <fieldset><legend>졸업 후 진로</legend><div class="route-options"><label><input type="radio" name="route" value="draft" checked /><span><b>고졸 프로 지명</b><small>KBO 신인 드래프트를 노립니다</small></span></label><label><input type="radio" name="route" value="college" /><span><b>대학 야구부 진학</b><small>4년을 다듬어 더 높은 지명을 노립니다</small></span></label><label><input type="radio" name="route" value="minor" /><span><b>MLB 마이너 계약</b><small>국제 계약으로 빅리그에 바로 도전합니다</small></span></label></div></fieldset>
+        <p class="setup-note">선택한 진로에 따라 드래프트, 포스팅, MLB FA 시점과 로드맵이 달라집니다.</p><button class="start-career" type="submit">커리어 시작하기 <span>→</span></button>
+      </form>
+    </section>
     <header class="topbar">
       <a class="brand" href="#top" aria-label="벤치에서 명전까지 홈"><span class="brand-ball">⚾</span><span>벤치에서 <b>명전</b>까지</span></a>
       <nav><a href="#career">커리어</a><a href="#records">기록실</a><a href="#guide">게임 가이드</a></nav>
-      <button class="profile-btn" type="button" aria-label="선수 프로필"><span>J</span> 김주원 <i>⌄</i></button>
+      <button class="profile-btn" id="profileButton" type="button" aria-label="새 선수 만들기"><span id="playerInitial">J</span> <b id="headerName">김주원</b> <i>⌄</i></button>
     </header>
 
     <main id="top">
@@ -23,7 +40,7 @@
           <div class="card-kicker"><span class="pulse"></span> 2031 SEASON · WEEK 12</div>
           <div class="player-main">
             <div class="player-number">17</div>
-            <div><p class="eyebrow">AAA · SEATTLE PILOTS</p><h1 id="hero-title">김주원 <span>Joon Kim</span></h1><p class="position">SP · 선발투수 · 22세</p></div>
+            <div><p class="eyebrow" id="teamLabel">서울고등학교 · 3학년</p><h1 id="hero-title"><span id="displayName">김주원</span> <span id="englishName">Joon Kim</span></h1><p class="position" id="positionLabel">SP · 선발투수 · 18세</p></div>
             <div class="overall"><strong id="overallValue">72</strong><span>OVR</span></div>
           </div>
           <div class="progress-row"><div><span>명예의 전당 여정</span><b id="hallProgressText">18 / 100</b></div><div class="track"><i id="hallProgress"></i></div><small>쿠퍼스타운까지 아직 멀었습니다. 오늘의 선택이 전설을 만듭니다.</small></div>
@@ -41,7 +58,7 @@
       </section>
 
       <section class="dashboard-grid" id="career">
-        <article class="panel action-panel"><div class="section-heading"><div><p class="eyebrow">THIS WEEK</p><h2>이번 주, 무엇을 할까요?</h2></div><span class="energy">⚡ <b id="energy">80</b>/100</span></div>
+        <article class="panel action-panel"><div class="section-heading"><div><p class="eyebrow" id="weekLabel">HIGH SCHOOL BASEBALL</p><h2 id="weeklyTitle">고교 마지막 시즌을 준비하세요</h2></div><span class="energy">⚡ <b id="energy">80</b>/100</span></div>
           <div class="actions">
             <button class="action chosen" data-action="training"><span class="action-icon">⌁</span><span><b>불펜 피칭</b><small>구위 +2 · 체력 -12</small></span><em>추천</em></button>
             <button class="action" data-action="rest"><span class="action-icon">☾</span><span><b>휴식과 회복</b><small>체력 +20 · 컨디션 회복</small></span></button>
@@ -58,12 +75,12 @@
         </article>
 
         <article class="panel news" id="guide"><div class="section-heading"><div><p class="eyebrow">CLUBHOUSE</p><h2>오늘의 소식</h2></div><span class="live-dot">LIVE</span></div>
-          <ul id="newsList"><li><time>방금</time><p><b>감독:</b> 다음 등판을 준비하자. 네 공은 충분히 위력적이야.</p></li><li><time>2시간 전</time><p>트리플A 이 주의 투수 후보에 올랐습니다.</p></li><li><time>어제</time><p><b>스카우트 리포트:</b> 제구가 안정되면 빅리그 콜업도 보입니다.</p></li></ul>
+          <ul id="newsList"><li><time>방금</time><p><b>감독:</b> 올여름, 어떤 길을 선택하든 준비는 오늘부터다.</p></li><li><time>2시간 전</time><p>지역 스카우트가 이번 주말 경기를 지켜볼 예정입니다.</p></li><li><time>어제</time><p><b>진로 상담:</b> 프로 지명, 대학 진학, MLB 마이너 계약 제안이 모두 가능합니다.</p></li></ul>
         </article>
       </section>
 
       <section class="roadmap panel" id="records"><div class="section-heading"><div><p class="eyebrow">THE ROAD TO COOPERSTOWN</p><h2>명예의 전당 로드맵</h2></div><span class="season-count">PRO 2년 차</span></div>
-        <div class="milestones"><div class="milestone done"><span>01</span><b>드래프트</b><small>2029</small></div><div class="line done"></div><div class="milestone active"><span>02</span><b>빅리그 데뷔</b><small>진행 중</small></div><div class="line"></div><div class="milestone"><span>03</span><b>올스타</b><small>목표</small></div><div class="line"></div><div class="milestone"><span>04</span><b>월드시리즈</b><small>목표</small></div><div class="line"></div><div class="milestone gold"><span>05</span><b>HALL OF FAME</b><small>쿠퍼스타운</small></div></div>
+        <div class="milestones" id="milestones"></div>
       </section>
     </main>
 
