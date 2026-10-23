@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=DM+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
+    <style>.team-mark.kia{background:#c8102e}.team-mark.samsung{background:#074ca1}.team-mark.rays{background:#092c5c}.team-mark.brewers{background:#ffc52f;color:#12284b}</style>
   </head>
   <body>
     <section class="onboarding" id="onboarding" aria-labelledby="setup-title">
@@ -38,7 +39,7 @@
     <main id="top">
       <section class="hero-grid" aria-labelledby="hero-title">
         <article class="player-card panel">
-          <div class="card-kicker"><span class="pulse"></span> 2031 SEASON · WEEK 12</div>
+          <div class="card-kicker"><span class="pulse"></span> <span id="seasonLabel">2026 SEASON · WEEK 1</span></div>
           <div class="player-main">
             <div class="player-number">17</div>
             <div><p class="eyebrow" id="teamLabel">서울고등학교 · 3학년</p><h1 id="hero-title"><span id="displayName">김주원</span> <span id="englishName">Joon Kim</span></h1><p class="position" id="positionLabel">SP · 선발투수 · 18세</p></div>
@@ -51,9 +52,9 @@
         </article>
 
         <aside class="next-game panel">
-          <p class="eyebrow">NEXT START</p><div class="game-date">MAY 26 <span>MON</span></div>
-          <div class="matchup"><div class="team-mark pilots">S</div><b>SEA</b><span>vs</span><b>HOU</b><div class="team-mark astros">H</div></div>
-          <p class="game-place">T-Mobile Park · 홈 · 19:10</p>
+          <p class="eyebrow" id="nextGameLabel">NEXT KBO GAME · 2026</p><div class="game-date" id="gameDate">OCT 25 <span>SUN</span></div>
+          <div class="matchup" id="matchup"><div class="team-mark kia">K</div><b>KIA</b><span>vs</span><b>삼성</b><div class="team-mark samsung">S</div></div>
+          <p class="game-place" id="gamePlace">2026 KBO PO 1차전 · 대구 · 14:00</p>
           <button class="primary" id="playGame" type="button">경기 시작 <span>→</span></button>
         </aside>
       </section>
