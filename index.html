@@ -9,7 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=DM+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
-    <style>.team-mark.kia{background:#c8102e}.team-mark.samsung{background:#074ca1}.team-mark.rays{background:#092c5c}.team-mark.brewers{background:#ffc52f;color:#12284b}</style>
+    <style>
+      .team-mark.kia{background:#c8102e}.team-mark.samsung{background:#074ca1}.team-mark.rays{background:#092c5c}.team-mark.brewers{background:#ffc52f;color:#12284b}
+      .season-schedule{margin-top:20px;padding:25px}.schedule-list{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.schedule-item{min-height:92px;padding:13px;border:1px solid #e0e6ea;border-radius:12px;background:#fff;position:relative;overflow:hidden}.schedule-item:before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:#d5dde3}.schedule-item span,.schedule-item b,.schedule-item small{display:block}.schedule-item span{color:#7a8b97;font:700 10px 'DM Mono'}.schedule-item b{margin-top:6px;font-size:13px}.schedule-item small{margin-top:5px;color:#83919b;font-size:9px}.schedule-item.active{border-color:#72aee7;background:#f1f7ff}.schedule-item.active:before{background:var(--blue)}.schedule-item.active b{color:#0765c3}.schedule-item.done{background:#f4f7f5}.schedule-item.done:before{background:#45b879}.schedule-item.done:after{content:'✓';position:absolute;right:10px;top:9px;color:#2d9d65;font-weight:900}.schedule-note{margin:13px 0 0;color:#7b8993;font-size:10px}.season-schedule .section-heading h2{margin-bottom:16px}@media(max-width:850px){.schedule-list{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.schedule-list{grid-template-columns:1fr}.schedule-item{min-height:78px}}
+    </style>
   </head>
   <body>
     <section class="onboarding" id="onboarding" aria-labelledby="setup-title">
@@ -42,7 +45,7 @@
     </section>
     <header class="topbar">
       <a class="brand" href="#top" aria-label="벤치에서 명전까지 홈"><span class="brand-ball">⚾</span><span>벤치에서 <b>명전</b>까지</span></a>
-      <nav><a href="#career">커리어</a><a href="#records">기록실</a><a href="#guide">게임 가이드</a></nav>
+      <nav><a href="#career">커리어</a><a href="#schedule">고교 일정</a><a href="#records">기록실</a><a href="#guide">게임 가이드</a></nav>
       <button class="profile-btn" id="profileButton" type="button" aria-label="새 선수 만들기"><span id="playerInitial">J</span> <b id="headerName">김주원</b> <i>⌄</i></button>
     </header>
 
@@ -91,6 +94,22 @@
         <article class="panel news" id="guide"><div class="section-heading"><div><p class="eyebrow">CLUBHOUSE</p><h2>오늘의 소식</h2></div><span class="live-dot">LIVE</span></div>
           <ul id="newsList"><li><time>방금</time><p><b>감독:</b> 올여름, 어떤 길을 선택하든 준비는 오늘부터다.</p></li><li><time>2시간 전</time><p>지역 스카우트가 이번 주말 경기를 지켜볼 예정입니다.</p></li><li><time>어제</time><p><b>진로 상담:</b> 프로 지명, 대학 진학, MLB 마이너 계약 제안이 모두 가능합니다.</p></li></ul>
         </article>
+      </section>
+
+      <section class="season-schedule panel" id="schedule">
+        <div class="section-heading"><div><p class="eyebrow">HIGH SCHOOL CALENDAR</p><h2>고교야구 시즌 일정</h2></div><span class="season-count" id="scheduleYear">2026 · 1학년</span></div>
+        <div class="schedule-list" id="scheduleList">
+          <article class="schedule-item active"><span>3월</span><b>전반기 주말리그</b><small>경기 1–3 · 권역별 구장</small></article>
+          <article class="schedule-item"><span>3월 말–4월</span><b>신세계 이마트배</b><small>경기 4–6 · 전국대회</small></article>
+          <article class="schedule-item"><span>5월</span><b>황금사자기</b><small>경기 7–8 · 전국대회</small></article>
+          <article class="schedule-item"><span>5월 말–6월</span><b>후반기 주말리그</b><small>경기 9–11 · 권역별 구장</small></article>
+          <article class="schedule-item"><span>6월 말–7월</span><b>청룡기</b><small>경기 12–13 · 전국대회</small></article>
+          <article class="schedule-item"><span>7월</span><b>대통령배</b><small>경기 14 · 전국대회</small></article>
+          <article class="schedule-item"><span>8월</span><b>봉황대기</b><small>경기 15–16 · 전국대회</small></article>
+          <article class="schedule-item"><span>10월</span><b>전국체육대회</b><small>경기 17 · 시도 대표</small></article>
+          <article class="schedule-item"><span>11월</span><b>노브랜드 챔피언십</b><small>경기 18 · 시즌 피날레</small></article>
+        </div>
+        <p class="schedule-note">Gemini에 정리된 2026 시즌 흐름을 18경기 게임 일정으로 재구성했으며 이후 학년에도 같은 구조를 적용합니다.</p>
       </section>
 
       <section class="roadmap panel" id="records"><div class="section-heading"><div><p class="eyebrow">THE ROAD TO COOPERSTOWN</p><h2>명예의 전당 로드맵</h2></div><span class="season-count" id="seasonCount">고교 1학년 · 2026</span></div>
